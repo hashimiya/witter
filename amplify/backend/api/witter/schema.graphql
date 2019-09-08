@@ -1,0 +1,6 @@
+type Weet @model {
+  id: ID!
+  user: ID!
+  longitude: String
+  latitude: String
+}

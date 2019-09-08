@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "witter",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authwitterf0baf69a",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

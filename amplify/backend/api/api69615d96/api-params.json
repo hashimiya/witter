@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/webhook",
+            "lambdaFunction": "wittercc0936fa",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "api69615d96",
+    "apiName": "api69615d96",
+    "functionArns": [
+        {
+            "lambdaFunction": "wittercc0936fa"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "witter-hwy-20190909023039-authRole",
+        "unAuthRoleName": "witter-hwy-20190909023039-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "wittercc0936fa",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
