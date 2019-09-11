@@ -1,3 +1,6 @@
+require("dotenv").config();
+const { API_KEY } = process.env;
+
 export default {
   mode: "universal",
   server: {
@@ -18,7 +21,14 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    script: [
+      {
+        src: `https://maps.google.com/maps/api/js?key=${API_KEY}&libraries=visualization`,
+        defer: true,
+        async: true
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
