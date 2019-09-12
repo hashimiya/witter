@@ -15,8 +15,16 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "typeRoots": [],
-    "types": ["@types/node", "@nuxt/types", "@types/jest"]
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types"
+    ],
+    "types": [
+      "@types/node",
+      "@nuxt/types",
+      "@types/jest",
+      "googlemaps"
+    ]
   },
   "exclude": ["node_modules"]
 }
