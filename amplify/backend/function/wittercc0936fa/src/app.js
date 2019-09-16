@@ -23,6 +23,19 @@ var app = express()
 app.use(bodyParser.json())
 app.use(awsServerlessExpressMiddleware.eventContext())
 
+const AWS = require('aws-sdk');
+const apiWitterGraphQLAPIIdOutput = process.env.API_WITTER_GRAPHQLAPIIDOUTPUT;
+
+const uuidv1 = require('uuid/v1');
+
+const dynamodb = new AWS.DynamoDB.DocumentClient();
+
+let weetTableName = 'Weet-' + apiWitterGraphQLAPIIdOutput;
+if(process.env.ENV && process.env.ENV !== "NONE") {
+  weetTableName = weetTableName + '-' + process.env.ENV;
+
+}
+
 // Enable CORS for all methods
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
@@ -31,10 +44,33 @@ app.use(function(req, res, next) {
 });
 
 
-app.post('/webhook', function(req, res) {
-  // TODO ここにDyanamoDBの記録処理等
-  console.log('gueeeeeeee');
-  res.json({success: 'post call succeed! 😎', url: req.url, body: req.body})
+app.post('/webhook', async function(req, res) {
+
+  const apiKey = req.query.apiKey;
+
+  if (!apiKey) {
+    res.status(500).json({error: 'invalid api key'});
+  }
+
+  if (!req.body.latitude || !req.body.longitude) {
+    res.status(500).json({error: 'invalid request'});
+  }
+
+  // TODO apiKeyのチェック
+
+  const putWeetParams = {
+    TableName: weetTableName,
+    Item:{
+      id: uuidv1(),
+      token: req.query.apiKey,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+    }
+  };
+
+  await dynamodb.put(putWeetParams).promise();
+
+  res.status(200).json({url: req.url, body: req.body})
 });
 
 app.listen(3000, function() {

@@ -2,7 +2,7 @@ require("dotenv").config();
 const { API_KEY } = process.env;
 
 export default {
-  mode: "universal",
+  mode: "spa",
   server: {
     port: 65432
   },
@@ -41,7 +41,12 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    {
+      src: '~plugins/amplify.ts',
+      ssr: false
+    }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
