@@ -1,32 +1,25 @@
 /* tslint:disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateWeetInput = {
-  id?: string | null,
-  token: string,
-  longitude?: string | null,
-  latitude?: string | null,
+export type ModelIDKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
 };
 
-export type UpdateWeetInput = {
-  id: string,
-  token?: string | null,
-  longitude?: string | null,
-  latitude?: string | null,
-};
-
-export type DeleteWeetInput = {
-  id?: string | null,
-};
-
-export type ModelWeetFilterInput = {
+export type ModelPrivateWeetFilterInput = {
+  apiKey?: ModelIDFilterInput | null,
   id?: ModelIDFilterInput | null,
-  token?: ModelIDFilterInput | null,
   longitude?: ModelStringFilterInput | null,
   latitude?: ModelStringFilterInput | null,
-  and?: Array< ModelWeetFilterInput | null > | null,
-  or?: Array< ModelWeetFilterInput | null > | null,
-  not?: ModelWeetFilterInput | null,
+  createdAt?: ModelStringFilterInput | null,
+  and?: Array< ModelPrivateWeetFilterInput | null > | null,
+  or?: Array< ModelPrivateWeetFilterInput | null > | null,
+  not?: ModelPrivateWeetFilterInput | null,
 };
 
 export type ModelIDFilterInput = {
@@ -55,108 +48,55 @@ export type ModelStringFilterInput = {
   beginsWith?: string | null,
 };
 
-export type CreateWeetMutationVariables = {
-  input: CreateWeetInput,
+export type ModelGlobalWeetFilterInput = {
+  id?: ModelIDFilterInput | null,
+  longitude?: ModelStringFilterInput | null,
+  latitude?: ModelStringFilterInput | null,
+  createdAt?: ModelStringFilterInput | null,
+  and?: Array< ModelGlobalWeetFilterInput | null > | null,
+  or?: Array< ModelGlobalWeetFilterInput | null > | null,
+  not?: ModelGlobalWeetFilterInput | null,
 };
 
-export type CreateWeetMutation = {
-  createWeet:  {
-    __typename: "Weet",
-    id: string,
-    token: string,
-    longitude: string | null,
-    latitude: string | null,
-  } | null,
-};
-
-export type UpdateWeetMutationVariables = {
-  input: UpdateWeetInput,
-};
-
-export type UpdateWeetMutation = {
-  updateWeet:  {
-    __typename: "Weet",
-    id: string,
-    token: string,
-    longitude: string | null,
-    latitude: string | null,
-  } | null,
-};
-
-export type DeleteWeetMutationVariables = {
-  input: DeleteWeetInput,
-};
-
-export type DeleteWeetMutation = {
-  deleteWeet:  {
-    __typename: "Weet",
-    id: string,
-    token: string,
-    longitude: string | null,
-    latitude: string | null,
-  } | null,
-};
-
-export type GetWeetQueryVariables = {
-  id: string,
-};
-
-export type GetWeetQuery = {
-  getWeet:  {
-    __typename: "Weet",
-    id: string,
-    token: string,
-    longitude: string | null,
-    latitude: string | null,
-  } | null,
-};
-
-export type ListWeetsQueryVariables = {
-  filter?: ModelWeetFilterInput | null,
+export type ListPrivateWeetsQueryVariables = {
+  apiKey?: string | null,
+  id?: ModelIDKeyConditionInput | null,
+  filter?: ModelPrivateWeetFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListWeetsQuery = {
-  listWeets:  {
-    __typename: "ModelWeetConnection",
+export type ListPrivateWeetsQuery = {
+  listPrivateWeets:  {
+    __typename: "ModelPrivateWeetConnection",
     items:  Array< {
-      __typename: "Weet",
+      __typename: "PrivateWeet",
+      apiKey: string,
       id: string,
-      token: string,
       longitude: string | null,
       latitude: string | null,
+      createdAt: string | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
 };
 
-export type OnCreateWeetSubscription = {
-  onCreateWeet:  {
-    __typename: "Weet",
-    id: string,
-    token: string,
-    longitude: string | null,
-    latitude: string | null,
-  } | null,
+export type ListGlobalWeetsQueryVariables = {
+  filter?: ModelGlobalWeetFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
 };
 
-export type OnUpdateWeetSubscription = {
-  onUpdateWeet:  {
-    __typename: "Weet",
-    id: string,
-    token: string,
-    longitude: string | null,
-    latitude: string | null,
-  } | null,
-};
-
-export type OnDeleteWeetSubscription = {
-  onDeleteWeet:  {
-    __typename: "Weet",
-    id: string,
-    token: string,
-    longitude: string | null,
-    latitude: string | null,
+export type ListGlobalWeetsQuery = {
+  listGlobalWeets:  {
+    __typename: "ModelGlobalWeetConnection",
+    items:  Array< {
+      __typename: "GlobalWeet",
+      id: string,
+      longitude: string | null,
+      latitude: string | null,
+      createdAt: string | null,
+    } | null > | null,
+    nextToken: string | null,
   } | null,
 };

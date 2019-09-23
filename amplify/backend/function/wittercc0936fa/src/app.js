@@ -30,9 +30,11 @@ const uuidv1 = require('uuid/v1');
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-let weetTableName = 'Weet-' + apiWitterGraphQLAPIIdOutput;
+let privateWeetTableName = 'PrivateWeet-' + apiWitterGraphQLAPIIdOutput;
+let globalWeetTableName = 'GlobalWeet-' + apiWitterGraphQLAPIIdOutput;
 if(process.env.ENV && process.env.ENV !== "NONE") {
-  weetTableName = weetTableName + '-' + process.env.ENV;
+  privateWeetTableName = privateWeetTableName + '-' + process.env.ENV;
+  globalWeetTableName = globalWeetTableName + '-' + process.env.ENV;
 
 }
 
@@ -57,18 +59,32 @@ app.post('/webhook', async function(req, res) {
   }
 
   // TODO apiKeyのチェック
+  const now =new Date();
 
-  const putWeetParams = {
-    TableName: weetTableName,
+  const putPrivateWeetParams = {
+    TableName: privateWeetTableName,
     Item:{
+      apiKey: req.query.apiKey,
       id: uuidv1(),
-      token: req.query.apiKey,
       latitude: req.body.latitude,
       longitude: req.body.longitude,
+      createdAt: now.toISOString(),
     }
   };
 
-  await dynamodb.put(putWeetParams).promise();
+  await dynamodb.put(putPrivateWeetParams).promise();
+
+  const putGlobalWeetParams = {
+    TableName: globalWeetTableName,
+    Item:{
+      id: uuidv1(),
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      createdAt: now.toISOString(),
+    }
+  };
+
+  await dynamodb.put(putGlobalWeetParams).promise();
 
   res.status(200).json({url: req.url, body: req.body})
 });

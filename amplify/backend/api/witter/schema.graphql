@@ -1,6 +1,19 @@
-type Weet @model {
+type PrivateWeet
+@model(queries: { list: "listPrivateWeets" }, mutations: null, subscriptions: null)
+@key(fields: ["apiKey", "id"])
+{
+  apiKey: ID!
   id: ID!
-  token: ID!
   longitude: String
   latitude: String
+  createdAt: AWSDateTime
+}
+
+type GlobalWeet
+@model(queries: { list: "listGlobalWeets" }, mutations: null, subscriptions: null)
+{
+  id: ID!
+  longitude: String
+  latitude: String
+  createdAt: AWSDateTime
 }

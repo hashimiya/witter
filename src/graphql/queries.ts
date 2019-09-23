@@ -1,26 +1,42 @@
 // tslint:disable
 // this is an auto generated file. This will be overwritten
 
-export const getWeet = `query GetWeet($id: ID!) {
-  getWeet(id: $id) {
-    id
-    token
-    longitude
-    latitude
-  }
-}
-`;
-export const listWeets = `query ListWeets(
-  $filter: ModelWeetFilterInput
+export const listPrivateWeets = `query ListPrivateWeets(
+  $apiKey: ID
+  $id: ModelIDKeyConditionInput
+  $filter: ModelPrivateWeetFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listWeets(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listPrivateWeets(
+    apiKey: $apiKey
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
     items {
+      apiKey
       id
-      token
       longitude
       latitude
+      createdAt
+    }
+    nextToken
+  }
+}
+`;
+export const listGlobalWeets = `query ListGlobalWeets(
+  $filter: ModelGlobalWeetFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listGlobalWeets(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      longitude
+      latitude
+      createdAt
     }
     nextToken
   }

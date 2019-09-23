@@ -4,17 +4,24 @@
       | amplify 🐔 デモ 🐤 ページ
     p このページはmiddlewareにauthを設定しているから、サインインしないとみれないよ
     amplify-sign-out
+    pre
+      | エンドポイント {{endpoint}}
+      |  {"latitude": "43.356170","longitude": "141.427382"} といった形式でJSONをPOSTすると記録されます
+    p 自分のログ
     ul
-      li(v-for="item in items")
-        | {{item.latitude}}, {{item.longitude}}
+      li(v-for="weet in privateWeets")
+        | {{weet.createdAt}}: {{weet.latitude}}, {{weet.longitude}}
+    p グローバル
+    ul
+      li(v-for="weet in globalWeets")
+        | {{weet.createdAt}}: {{weet.latitude}}, {{weet.longitude}}
 
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { components } from "aws-amplify-vue";
-import { API, graphqlOperation } from "aws-amplify";
-import * as queries from "@/graphql/queries";
+import { WitterAPI, Weet } from "~/WitterAPI";
 
 @Component({
   middleware: "auth",
@@ -23,13 +30,14 @@ import * as queries from "@/graphql/queries";
   }
 })
 export default class Howyi extends Vue {
-  items: any = [{ message: "Foo" }, { message: "Bar" }];
+  privateWeets: Weet[] = [];
+  globalWeets: Weet[] = [];
+  endpoint: string = "";
 
   async load() {
-    const result = await API.graphql(graphqlOperation(queries.listWeets));
-    console.log(result);
-    // @ts-ignore
-    this.items = result.data.listWeets.items;
+    this.endpoint = await WitterAPI.getEndpoint();
+    this.privateWeets = await WitterAPI.listPrivateWeets();
+    this.globalWeets = await WitterAPI.listGlobalWeets();
   }
 
   mounted() {

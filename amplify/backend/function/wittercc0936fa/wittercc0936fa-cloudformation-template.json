@@ -70,7 +70,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "witter-hwy-20190909023039-deployment",
-					"S3Key": "amplify-builds/wittercc0936fa-694a506268684e6d5257-build.zip"
+					"S3Key": "amplify-builds/wittercc0936fa-516a45342f77756b7657-build.zip"
 				}
 			}
 		},
@@ -169,7 +169,7 @@
 														"Fn::Join": [
 															"-",
 															[
-																"Weet",
+																"PrivateWeet",
 																{
 																	"Ref": "apiwitterGraphQLAPIIdOutput"
 																}
@@ -180,7 +180,44 @@
 														"Fn::Join": [
 															"-",
 															[
-																"Weet",
+																"PrivateWeet",
+																{
+																	"Ref": "apiwitterGraphQLAPIIdOutput"
+																},
+																{
+																	"Ref": "env"
+																}
+															]
+														]
+													}
+												]
+											}
+										}
+									]
+								},
+								{
+									"Fn::Sub": [
+										"arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
+										{
+											"tablename": {
+												"Fn::If": [
+													"ShouldNotCreateEnvResources",
+													{
+														"Fn::Join": [
+															"-",
+															[
+																"GlobalWeet",
+																{
+																	"Ref": "apiwitterGraphQLAPIIdOutput"
+																}
+															]
+														]
+													},
+													{
+														"Fn::Join": [
+															"-",
+															[
+																"GlobalWeet",
 																{
 																	"Ref": "apiwitterGraphQLAPIIdOutput"
 																},
