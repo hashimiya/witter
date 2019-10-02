@@ -1,8 +1,11 @@
-import { Auth } from 'aws-amplify'
+import { vxm } from "@/store/store";
 
 export default async ({ redirect }: any): Promise<any> => {
-  let signedIn = false
-  await Auth.currentUserInfo()
-    .then(data => (signedIn = Boolean(data)))
-    .then(() => signedIn || redirect('/signin'))
-}
+  if (vxm.user.signedIn) {
+    return;
+  }
+  await vxm.user.fetchSignedIn();
+  if (vxm.user.signedIn === false) {
+    redirect("/signin");
+  }
+};
