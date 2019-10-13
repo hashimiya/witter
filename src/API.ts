@@ -48,6 +48,12 @@ export type ModelStringFilterInput = {
   beginsWith?: string | null,
 };
 
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelGlobalWeetFilterInput = {
   id?: ModelIDFilterInput | null,
   longitude?: ModelStringFilterInput | null,
@@ -64,6 +70,7 @@ export type ListPrivateWeetsQueryVariables = {
   filter?: ModelPrivateWeetFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListPrivateWeetsQuery = {

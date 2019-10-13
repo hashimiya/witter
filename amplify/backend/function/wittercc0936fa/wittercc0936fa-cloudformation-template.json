@@ -69,7 +69,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "witter-hwy-20190909023039-deployment",
+					"S3Bucket": "witter-ydev-20191013150054-deployment",
 					"S3Key": "amplify-builds/wittercc0936fa-516a45342f77756b7657-build.zip"
 				}
 			}

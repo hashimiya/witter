@@ -7,6 +7,7 @@ export const listPrivateWeets = `query ListPrivateWeets(
   $filter: ModelPrivateWeetFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
   listPrivateWeets(
     apiKey: $apiKey
@@ -14,6 +15,7 @@ export const listPrivateWeets = `query ListPrivateWeets(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       apiKey
